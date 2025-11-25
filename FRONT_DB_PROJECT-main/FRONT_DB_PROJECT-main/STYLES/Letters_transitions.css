@@ -1,0 +1,26 @@
+/* ANIMATION CSS ABOUT MAIN MENSAJE IN THE FRAME */
+.mensaje {
+    
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+}
+
+.oculto {
+    opacity: 0;
+}
+
+/* ANIMATION CSS ABOUT MAIN MENSAJE IN THE FRAME 2 */
+.cursor{
+    display: inline-block;
+    width: 3px;
+    height: 1em;
+    background-color: white;
+    animation: blink 0.8s step-start infinite;
+    vertical-align: bottom;
+}
+
+@keyframes blink{
+    50%{
+        opacity: 0;
+    }
+}

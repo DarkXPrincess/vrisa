@@ -1,0 +1,19 @@
+.animag :hover{
+    transform: scale(1.09);
+    transition: all 5s linear;
+}
+
+.zoom :hover{
+    transform: scale(1.04);
+    transition: 1s linear;
+}
+.zoom::after{
+    transform: scale(1);
+    transition: 1s linear;
+}
+
+.styleicon {
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  object-fit: cover;
+}

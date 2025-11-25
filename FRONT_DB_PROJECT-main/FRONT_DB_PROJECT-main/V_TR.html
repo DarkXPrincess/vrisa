@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VriSA Administrador del Sistema</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="STYLES/Background.css">
+  <link rel="stylesheet" href="STYLES/Animations.css">
+  <link rel="stylesheet" href="STYLES/Button Style.css">
+  <link rel="stylesheet" href="STYLES/Letter.css">
+  <link rel="stylesheet" href="STYLES/Letters_transitions.css">
+</head>
+<body>
+
+<!-- MODALES -->
+<div class="modal fade" id="modalCerrarSesion" tabindex="-1" aria-labelledby="modalCerrarSesionLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCerrarSesionLabel">Confirmación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3 align-items-center text-center">
+            <p class="fs-5">¿Estás seguro(a) de que deseas salir de la sesion?</p>
+            <p class="text-muted">Tendrá que iniciar usuario nuevamente.</p>
+            <button type="button" class="boton-rojo">Cerrar Sesion</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn boton-azul" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalGenerarTendencias" tabindex="-1" aria-labelledby="modalGenerarTendenciasLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalGenerarTendenciasLabel">Aceptar Registro de Institución</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="rolAsignado" class="form-label">Asignar Rol</label>
+            <input type="text" class="form-control" id="rolAsignado" placeholder="Ej. Administrador Institucional">
+          </div>
+          <div class="mb-3">
+            <label for="permisosAcceso" class="form-label">Definir Permisos de Acceso</label>
+            <textarea class="form-control" id="permisosAcceso" rows="3" placeholder="Ej. Gestión de usuarios, visualización de reportes, configuración de sensores..."></textarea>
+          </div>
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="habilitarApariencia">
+            <label class="form-check-label" for="habilitarApariencia">
+              Habilitar Apariencia Institucional (logo y colores personalizados)
+            </label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn boton-azul">Guardar y Activar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalGenerarAlerta" tabindex="-1" aria-labelledby="modalGenerarAlertaLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalGenerarAlertaLabel">Confirmar Rechazo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p class="fs-5">¿Estás seguro(a) de que deseas rechazar este registro?</p>
+        <p class="text-muted">Esta acción no se puede deshacer.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn boton-rojo">Confirmar Rechazo</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OFFCANVAS FILTROS -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFiltros" aria-labelledby="offcanvasFiltrosLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasFiltrosLabel">Filtros</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="mb-3">
+      <label class="form-label">Filtrar por rango temporal</label>
+      <p>Desde</p>
+      <input type="date" class="form-control mb-2" id="fechaInicio">
+      <p>Hasta</p>
+      <input type="date" class="form-control" id="fechaFin">
+    </div>
+    <div class="mb-3">
+      <label for="contaminanteSelect" class="form-label">Filtrar por contaminante</label>
+      <select class="form-select" id="contaminanteSelect">
+        <option selected disabled>Cargando...</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="estacionSelect" class="form-label">Filtrar por estación</label>
+      <select class="form-select" id="estacionSelect">
+        <option selected disabled>Cargando...</option>
+      </select>
+    </div>
+    <div class="text-center">
+      <button class="btn boton-azul w-100" id="aplicarFiltros">Aplicar filtros</button>
+    </div>
+  </div>
+</div>
+
+<!-- CUERPO PRINCIPAL -->
+<div class="container-fluid Background4 align-items-center">
+  <div class="container-fluid d-flex justify-content-center align-items-center">
+    <div class="accordion" id="accordionInstituciones">
+
+      <div class="text-center m-3">
+        <button class="btn boton-azul text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFiltros" aria-controls="offcanvasFiltros">
+          Filtros
+        </button>
+      </div>
+
+      <div class="text-center p-2">
+        <button class="btn boton-azul text-white m-1" data-bs-toggle="modal" data-bs-target="#modalGenerarTendencias">
+          Generar Reporte (Tendencias)
+        </button>
+        <button class="btn boton-rojo text-white" data-bs-toggle="modal" data-bs-target="#modalGenerarAlerta">
+          Generar Reporte (Alerta)
+        </button>
+        <button class="btn boton-azul text-white m-1" data-bs-toggle="modal" data-bs-target="#modalGenerarTendencias">
+          Descargar (PDF/CSV)
+        </button>
+        <button class="btn boton-azul text-white m-1" data-bs-toggle="modal" data-bs-target="#modalGenerarTendencias">
+          Configurar Alertas
+        </button>
+      </div>
+
+      <div class="text-center m-5">
+        <button type="button" class="boton-rojo rounded-5" data-bs-toggle="modal" data-bs-target="#modalCerrarSesion">
+          Cerrar Sesion
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  const inputDocs = document.getElementById('documentosEstacion');
+  const nombreDocs = document.getElementById('nombreDocumentos');
+
+  inputDocs?.addEventListener('change', function () {
+    if (this.files.length > 0) {
+      const nombres = Array.from(this.files).map(file => file.name).join(', ');
+      nombreDocs.textContent = nombres;
+    } else {
+      nombreDocs.textContent = 'Ningún archivo seleccionado';
+    }
+  });
+</script>
+
+<script>
+  const passwordInput = document.getElementById('passwordLogin');
+  const togglePassword = document.getElementById('togglePassword');
+
+  togglePassword?.addEventListener('click', () => {
+    const isPassword = password});

@@ -1,0 +1,220 @@
+.Background1{
+    background: url("../IMG/2.png");
+    background-color: rgba(0, 0, 0, 0.363);
+    background-blend-mode: soft-light;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100vw; 
+    position: relative; 
+    background-attachment: fixed;
+    animation: motion1 30s infinite linear alternate;
+    display: flex;
+
+    background-size: cover;
+    background-position: center;
+}
+.Background2 {
+    background: url("../IMG/4.png");
+    background-color: rgba(0, 0, 0, 0.363);
+    background-blend-mode: soft-light;
+    background-repeat: no-repeat;
+    min-height: 100vh;  /* ✅ permite crecer con el contenido */
+    width: 100%; 
+    position: relative; 
+    background-attachment: fixed;
+    animation: motion1 30s infinite linear alternate;
+    display: flex;
+    flex-direction: column; /* ✅ asegura el crecimiento vertical */
+    background-size: cover;
+    background-position: center;
+}
+.Background3 {
+    background: url("../IMG/3.png");
+    background-color: rgba(0, 0, 0, 0.363);
+    background-blend-mode: soft-light;
+    background-repeat: no-repeat;
+    min-height: 100vh;  /* ✅ permite crecer con el contenido */
+    width: 100%; 
+    position: relative; 
+    background-attachment: fixed;
+    animation: motion1 30s infinite linear alternate;
+    display: flex;
+    flex-direction: column; /* ✅ asegura el crecimiento vertical */
+    background-size: cover;
+    background-position: center;
+}
+
+.Background4 {
+    background: url("../IMG/post.png");
+    background-color: rgba(0, 0, 0, 0.363);
+    background-blend-mode: soft-light;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    background-attachment: fixed;
+    animation: motion1 30s infinite linear alternate;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;   /* 👈 evita que todo quede centrado verticalmente */
+    background-size: cover;
+    background-position: center;
+}
+
+
+
+/* Backgrounds MODAL MENU */
+.Background5menu {
+    background: url("../BACKGROUND_IMAGES/MAIN_BACKGROUND/4.png");
+    background-color: rgba(0, 0, 0, 0.5);
+    background-blend-mode: soft-light;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    animation: motion1 20s infinite linear alternate;
+    display: flex;
+
+    height: 100vh; 
+    width: 100%; 
+
+    position: relative;
+}
+
+.reducebotton:hover{
+    transform: scale(0.8)
+}
+
+/* FRAMES ANIMACIONES MOVIMIENTO*/
+@keyframes motion1{
+    0% { opacity: 0.5; 
+        transform: scale(1.3);
+        
+    }
+    7% { opacity: 1; 
+        transform: scale(1.1);
+    }
+    14% { 
+        transform: scale(1);
+    }
+    from{
+        background-position: right center;
+    } 
+    to{
+        background-position: bottom left;
+    }
+}
+@keyframes motion2{
+    0% { opacity: 0.5; 
+        transform: scale(1);
+        
+    }
+    7% { opacity: 1; 
+        transform: scale(1.05);
+    }
+    14%{
+        transform: scale(1);
+    }
+    from{
+        background-position:  bottom left;
+    } 
+    to{
+        background-position: right center;
+    }
+}
+@media (min-width: 700px) {
+    .Background1 .Background2 .Background3 .Background4 .Background5{
+        background-size: 100%;
+        }
+}
+@media (max-width: 700px) {
+    .Background1 .Background2 .Background3 .Background4 .Background5{      
+        animation: motion 50s infinite linear alternate;
+        }
+}
+
+.navbar1 {
+    position: absolute; /* o fixed si quieres que esté siempre visible */
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 1rem;
+    z-index: 10; /* MUY importante para que esté encima */
+    background: rgba(255, 255, 255, 0.15); /* COLOR NAV TRANSPARENTE */
+ 
+  }
+  
+  .navbar1 ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+  }
+  
+.navbar1 a {
+    color: white;
+    text-decoration: none;
+}
+
+.space{
+    height: 100%;
+    width: 100%;
+}
+
+.nav1{
+position: absolute;
+}
+/* Backgrounds COLOR BASE */
+.Backgroundbase{
+    background-color: rgba(102, 102, 102, 0.281);
+}
+.Backgroundbase2{
+    background-color: rgba(217,217, 217, 0.500);
+}
+.Backgroundbase3{
+    background-color: rgba(0, 0, 0, 0.39);
+}
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.carousel,
+.carousel-inner,
+.carousel-item,
+.carousel-item img {
+    height: 100%;
+}
+
+.carousel-item img {
+    object-fit: cover;
+}
+
+/*SCROLL */
+::-webkit-scrollbar {
+    width: 8px;              /* Ancho de la barra vertical */
+    height: 8px;             /* Altura de la barra horizontal (si aplica) */
+    background-color: transparent;  /* Fondo de la scrollbar */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(217, 217, 217);     /* Color del botón */
+    border-radius: 10px;        /* Opcional: bordes redondeados */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: transparent;  /* Fondo detrás del botón */
+  }
+
+/*CARDS STYLE */
+  .cardstyle{
+    width: 18rem;
+}
+
+.card-img-top {
+    width: 50%;
+    height: auto;
+    max-height: 100px;
+    object-fit: cover;
+}

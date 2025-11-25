@@ -1,0 +1,38 @@
+/* FUENTE DE LETRA */
+@font-face {
+    font-family: 'Calibri';
+    src: url('../FONT/Calibri.ttf') format('truetype'); /* route */
+    font-weight: normal;
+    font-style: normal;
+  }
+
+
+/* LETTERS COLOR */
+.transitionB{
+  position: fixed;
+}
+.lettercolor1 {
+  color: rgb(0, 140, 200)!important;
+}
+.lettercolor2{
+  color: rgb(255, 102, 0)!important;
+}
+.lettercolor3{
+  color: rgb(217, 217, 217)!important;
+}
+.lettercolor4{
+  color: rgb(0, 70, 140)!important;
+}
+.lettercolorn{
+  color: rgb(0, 0, 0)!important;
+}
+/* ESTILO PARRAFO DE CADA FRAME TAMAÑO */
+.sizep{
+  width: 60%;
+  height: 100%;
+}
+
+
+
+
+
