@@ -1,0 +1,11 @@
+-- ACTUALIZACION DE ESTACION CAMBIA GEOM
+CREATE TRIGGER trg_set_estacion_geom
+BEFORE INSERT OR UPDATE ON estacion
+FOR EACH ROW
+EXECUTE FUNCTION fn_set_estacion_geom();
+
+--ESTACION INACTIVA, SENSORES INACTIVOS
+CREATE TRIGGER trg_inactivar_sensores_estacion
+AFTER UPDATE ON estacion
+FOR EACH ROW
+EXECUTE FUNCTION fn_inactivar_sensores_estacion();
