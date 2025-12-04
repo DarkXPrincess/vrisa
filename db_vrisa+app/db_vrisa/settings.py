@@ -28,17 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'vrisa',
-]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,18 +46,30 @@ ROOT_URLCONF = 'db_vrisa.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],            # puede quedar vacío
+        "APP_DIRS": True,      # IMPORTANTE que esté en True
+        "OPTIONS": {
+            "context_processors": [
+                # los típicos...
             ],
         },
     },
 ]
+
+STATIC_URL = "/static/"
+INSTALLED_APPS = [
+  
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'vrisa',
+
+]
+
 
 WSGI_APPLICATION = 'db_vrisa.wsgi.application'
 
