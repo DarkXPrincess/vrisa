@@ -37,6 +37,10 @@ def login(request):
     # si es GET, no mostramos nada especial (el login está en el index)
     return redirect("vrisa:index")
 
+def logout_view(request):
+    request.session.flush()
+    messages.info(request, "Has cerrado sesión.")
+    return redirect("vrisa:index")
 
 def registrar_institucion(request):
     if request.method == "POST":
@@ -67,11 +71,15 @@ def admin_instituciones(request):
     # vista para cargar V_admin_inst.html
     return render(request, "V_admin_inst.html")
 
+def tableros(request):
+    
+    return render(request,"V_TR.html")
+
 
 
 def admin_sistema(request):
     # vista para cargar V_admin_sist.html
-
+    
     return render(request, "V_admin_sist.html")
 
 

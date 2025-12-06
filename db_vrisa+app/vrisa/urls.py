@@ -20,4 +20,7 @@ urlpatterns = [
 
     # 🔹 LOGIN DE USUARIO (la vista login de views.py)
     path("login/", views.login, name="login"),
+    path("logout/", views.logout_view, name="logout_view"),
+
+    path("tableros/", views.tableros, name="tableros"),
 ]
