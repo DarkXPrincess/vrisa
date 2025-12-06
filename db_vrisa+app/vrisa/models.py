@@ -131,7 +131,7 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Bg(models.Model):
-    gid = models.AutoField()
+    gid = models.IntegerField()
     statefp = models.CharField(max_length=2, blank=True, null=True)
     countyfp = models.CharField(max_length=3, blank=True, null=True)
     tractce = models.CharField(max_length=6, blank=True, null=True)
@@ -153,7 +153,7 @@ class Bg(models.Model):
 
 
 class County(models.Model):
-    gid = models.AutoField(unique=True)
+    gid = models.IntegerField(unique=True)
     statefp = models.CharField(max_length=2, blank=True, null=True)
     countyfp = models.CharField(max_length=3, blank=True, null=True)
     countyns = models.CharField(max_length=8, blank=True, null=True)
@@ -205,7 +205,7 @@ class CountysubLookup(models.Model):
 
 
 class Cousub(models.Model):
-    gid = models.AutoField(unique=True)
+    gid = models.IntegerField(unique=True)
     statefp = models.CharField(max_length=2, blank=True, null=True)
     countyfp = models.CharField(max_length=3, blank=True, null=True)
     cousubfp = models.CharField(max_length=5, blank=True, null=True)
@@ -477,6 +477,7 @@ class Institucion(models.Model):
     id_i = models.AutoField(primary_key=True)
     nombre = models.CharField(unique=True, max_length=150)
     direccion = models.CharField(max_length=200)
+    #setColores = models.CharField(max_length=200)
     logo = models.CharField(max_length=255, blank=True, null=True)
     e_validacion = models.TextField()  # This field type is a guess.
     estado = models.TextField()  # This field type is a guess.
@@ -587,7 +588,7 @@ class PagcRules(models.Model):
 
 
 class Place(models.Model):
-    gid = models.AutoField(unique=True)
+    gid = models.IntegerField(unique=True)
     statefp = models.CharField(max_length=2, blank=True, null=True)
     placefp = models.CharField(max_length=5, blank=True, null=True)
     placens = models.CharField(max_length=8, blank=True, null=True)
@@ -672,7 +673,7 @@ class SpatialRefSys(models.Model):
 
 
 class State(models.Model):
-    gid = models.AutoField(unique=True)
+    gid = models.IntegerField(unique=True)
     region = models.CharField(max_length=2, blank=True, null=True)
     division = models.CharField(max_length=2, blank=True, null=True)
     statefp = models.CharField(primary_key=True, max_length=2)
@@ -715,7 +716,7 @@ class StreetTypeLookup(models.Model):
 
 
 class Tabblock(models.Model):
-    gid = models.AutoField()
+    gid = models.IntegerField()
     statefp = models.CharField(max_length=2, blank=True, null=True)
     countyfp = models.CharField(max_length=3, blank=True, null=True)
     tractce = models.CharField(max_length=6, blank=True, null=True)
@@ -774,7 +775,7 @@ class Topology(models.Model):
 
 
 class Tract(models.Model):
-    gid = models.AutoField()
+    gid = models.IntegerField()
     statefp = models.CharField(max_length=2, blank=True, null=True)
     countyfp = models.CharField(max_length=3, blank=True, null=True)
     tractce = models.CharField(max_length=6, blank=True, null=True)
@@ -847,7 +848,7 @@ class Variable(models.Model):
 
 class Zcta5(models.Model):
     pk = models.CompositePrimaryKey('zcta5ce', 'statefp')
-    gid = models.AutoField(unique=True)
+    gid = models.IntegerField(unique=True)
     statefp = models.CharField(max_length=2)
     zcta5ce = models.CharField(max_length=5)
     classfp = models.CharField(max_length=2, blank=True, null=True)

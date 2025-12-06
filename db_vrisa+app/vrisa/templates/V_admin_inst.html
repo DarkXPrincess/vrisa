@@ -210,23 +210,24 @@
     </script>
     <script>
         async function cargarListaInstituciones() {
-            try {
-            const response = await fetch('/api/instituciones');
-            const data = await response.json();
-            const lista = document.getElementById('listaInstituciones');
+    try {
+        const response = await fetch('/api/instituciones');
+        const data = await response.json();
+        const lista = document.getElementById('listaDC');
 
-            lista.innerHTML = ''; // Limpiar lista previa
+        lista.innerHTML = '';
 
-            data.forEach(inst => {
-                const item = document.createElement('li');
-                item.className = 'list-group-item';
-                item.textContent = inst.nombre;
-                lista.appendChild(item);
-            });
-            } catch (error) {
-            console.error('Error al cargar instituciones:', error);
-            }
-        }
+        data.forEach(inst => {
+            const item = document.createElement('li');
+            item.className = 'list-group-item';
+            item.textContent = inst.nombre;
+            lista.appendChild(item);
+        });
+    } catch (error) {
+        console.error('Error al cargar instituciones:', error);
+    }
+}
+
 
         // Cargar al expandir el acordeón
         const collapseLista = document.getElementById('collapseLista');

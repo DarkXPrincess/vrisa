@@ -44,6 +44,7 @@ CREATE TABLE institucion (
     nombre          VARCHAR(150) NOT NULL,
     direccion       VARCHAR(200) NOT NULL,
     logo            VARCHAR(255),                -- ruta o URL del logo
+    --setColores      VARCHAR(200),
     e_validacion    validacion NOT NULL DEFAULT 'en_espera',  -- validación por parte del admin del sistema
     estado          estado NOT NULL DEFAULT 'activo',
 

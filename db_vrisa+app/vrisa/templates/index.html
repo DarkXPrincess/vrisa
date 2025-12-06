@@ -18,46 +18,81 @@
 <body>
 
 <!-- MODAL INSTITUCION-->
- <div class="modal fade" id="modalInstitucion" tabindex="-1" aria-labelledby="modalInstitucionLabel" aria-hidden="true">
+<div class="modal fade" id="modalInstitucion" tabindex="-1" aria-labelledby="modalInstitucionLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modalInstitucionLabel">Registrar Institución</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
+
       <div class="modal-body">
         <!-- FORMULARIO INSTITUCION -->
-        <form>
+        <form id="formInstitucion"
+              method="POST"
+              action="{% url 'vrisa:registrar_institucion' %}">
+          {% csrf_token %}
+
           <div class="mb-3">
             <label for="nombreInstitucion" class="form-label">Nombre oficial de la institución</label>
-            <input type="text" class="form-control" id="nombreInstitucion" placeholder="Ej. Universidad VriSA">
+            <input type="text"
+                   class="form-control"
+                   id="nombreInstitucion"
+                   name="nombre"
+                   placeholder="Ej. Universidad VriSA">
           </div>
+
           <div class="mb-3">
             <label for="setcolores" class="form-label">Set de colores</label>
-            <input type="text" class="form-control" id="setcolores" placeholder="Ej. Blanco">
+            <input type="text"
+                   class="form-control"
+                   id="setcolores"
+                   name="setcolores"
+                   placeholder="Ej. Blanco">
           </div>
+
           <div class="mb-3">
             <label for="direfisica" class="form-label">Dirección física</label>
-            <input type="text" class="form-control" id="direfisica" placeholder="Ej. cll 183 15-19">
+            <input type="text"
+                   class="form-control"
+                   id="direfisica"
+                   name="direccion"
+                   placeholder="Ej. cll 183 15-19">
           </div>
+
           <div class="mb-3">
-            <div><label for="logoInstitucion" class="form-label">Sobre tu Logo... </label>
-            </div>
-            <input type="file" class="d-none" id="logoInstitucion" accept="image/*">
+            <div><label for="logoInstitucion" class="form-label">Sobre tu Logo... </label></div>
+            <input type="file"
+                   class="d-none"
+                   id="logoInstitucion"
+                   accept="image/*">
             <label for="logoInstitucion" class="btn btn-outline-primary">Subir archivo</label>
             <span id="nombreArchivo" class="ms-2 text-muted">Ningún archivo seleccionado</span>
           </div>
 
-          <!-- FIN FORMULARIO INSTITUCION -->
         </form>
+        <!-- FIN FORMULARIO INSTITUCION -->
       </div>
+
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Enviar Solicitud de registro</button>
+        <button type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal">
+          Cancelar
+        </button>
+
+        <!-- ESTE ES EL BOTÓN QUE ENVÍA EL FORMULARIO -->
+        <button type="submit"
+                class="btn btn-primary"
+                form="formInstitucion">
+          Enviar Solicitud de registro
+        </button>
       </div>
     </div>
   </div>
 </div>
+
+
 <!--FIN MODAL INSTITUCION-->
 <!--MODAL ESTACION-->
 <div class="modal fade" id="modalEstacion" tabindex="-1" aria-labelledby="modalEstacionLabel" aria-hidden="true">
@@ -116,28 +151,38 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
-        <form>
-          <!-- Usuario o correo electrónico -->
-          <div class="mb-3">
-            <label for="usuarioLogin" class="form-label">Usuario / Correo electrónico</label>
-            <input type="text" class="form-control" id="usuarioLogin" placeholder="Ej. alexander@vrisa.org">
-          </div>
+        <form id="formLogin"
+      method="POST"
+      action="{% url 'vrisa:login' %}">
+  {% csrf_token %}
 
-          <!-- Contraseña -->
-          <div class="mb-3">
-            <label for="passwordLogin" class="form-label">Contraseña</label>
-            <div class="input-group">
-              <input type="password" class="form-control" id="passwordLogin" placeholder="">
-              <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                🙈
-              </button>
-            </div>
-          </div>
-        </form>
+  <!-- Usuario / correo electrónico -->
+  <div class="mb-3">
+    <label for="usuarioLogin" class="form-label">Usuario / Correo electrónico</label>
+    <input type="text"
+           class="form-control"
+           id="usuarioLogin"
+           name="correo"
+           placeholder="Ej. alexander@vrisa.org">
+  </div>
+
+  <!-- Contraseña -->
+  <div class="mb-3">
+    <label for="passwordLogin" class="form-label">Contraseña</label>
+    <div class="input-group">
+      <input type="password"
+             class="form-control"
+             id="passwordLogin"
+             name="contrasena">
+      
+    </div>
+  </div>
+</form>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Ingresar</button>
+        <button type="submit" class="btn btn-primary" form="formLogin">Ingresar</button>
       </div>
     </div>
   </div>
