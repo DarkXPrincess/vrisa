@@ -143,50 +143,71 @@
 </div>
 <!--FIN MODAL ESTACION-->
 <!--MODAL ACCEDER/login-->
+<!--MODAL ACCEDER/login-->
 <div class="modal fade" id="modallogin" tabindex="-1" aria-labelledby="modalloginLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
+
       <div class="modal-header">
         <h5 class="modal-title" id="modalloginLabel">Inicio de sesión</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
+
       <div class="modal-body">
         <form id="formLogin"
-      method="POST"
-      action="{% url 'vrisa:login' %}">
-  {% csrf_token %}
+              method="POST"
+              action="{% url 'vrisa:login' %}">
+          {% csrf_token %}
 
-  <!-- Usuario / correo electrónico -->
-  <div class="mb-3">
-    <label for="usuarioLogin" class="form-label">Usuario / Correo electrónico</label>
-    <input type="text"
-           class="form-control"
-           id="usuarioLogin"
-           name="correo"
-           placeholder="Ej. alexander@vrisa.org">
-  </div>
+          <!-- Usuario o correo electrónico -->
+          <div class="mb-3">
+            <label for="usuarioLogin" class="form-label">Usuario / Correo electrónico</label>
+            <input type="text"
+                   class="form-control"
+                   id="usuarioLogin"
+                   name="correo"
+                   placeholder="Ej. alexander@vrisa.org">
+          </div>
 
-  <!-- Contraseña -->
-  <div class="mb-3">
-    <label for="passwordLogin" class="form-label">Contraseña</label>
-    <div class="input-group">
-      <input type="password"
-             class="form-control"
-             id="passwordLogin"
-             name="contrasena">
-      
-    </div>
-  </div>
-</form>
+          <!-- Contraseña -->
+          <div class="mb-3">
+            <label for="passwordLogin" class="form-label">Contraseña</label>
+            <div class="input-group">
+              <input type="password"
+                     class="form-control"
+                     id="passwordLogin"
+                     name="contrasena">
+              <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                🙈
+              </button>
+            </div>
+          </div>
 
+        </form>
       </div>
+
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" form="formLogin">Ingresar</button>
+        <button type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal">
+          Cancelar
+        </button>
+
+        <!-- ESTE es el botón que ENVÍA el form -->
+        <button type="submit"
+                class="btn btn-primary"
+                form="formLogin">
+          Ingresar
+        </button>
       </div>
+
     </div>
   </div>
 </div>
+
+</form>
+
+
 <!--FIN MODAL ACCEDER-->
 <!--NAVEGADOR-->
   <div class=" container-fluid Background1 align-items-center">
