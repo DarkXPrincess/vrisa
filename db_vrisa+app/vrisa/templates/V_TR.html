@@ -27,7 +27,7 @@
           <div class="mb-3 align-items-center text-center">
             <p class="fs-5">¿Estás seguro(a) de que deseas salir de la sesion?</p>
             <p class="text-muted">Tendrá que iniciar usuario nuevamente.</p>
-            <button type="button" class="boton-rojo">Cerrar Sesion</button>
+            <a href="{% url 'vrisa:logout_view' %}" class="boton-rojo">Cerrar Sesion</a>
           </div>
         </form>
       </div>
