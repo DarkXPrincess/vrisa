@@ -93,7 +93,7 @@
       
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn boton-azul">Guardar y Activar</button>
+        <button type="button" class="btn boton-azul" onclick="aceptarInstitucion()">Guardar y Activar</button>
       </div>
       
     </div>
@@ -216,37 +216,98 @@
     <script>
       async function cargarListaInstituciones() {
           try {
-          const response = await fetch('/api/instituciones');
-          const data = await response.json();
-          const lista = document.getElementById('listaInstituciones');
+              const response = await fetch('/api/instituciones');
+              const data = await response.json();
+              const lista = document.getElementById('listaInstituciones');
 
-          lista.innerHTML = ''; // Limpiar lista previa
+              lista.innerHTML = ''; // Limpiar lista previa
 
-          data.forEach(inst => {
-              const item = document.createElement('li');
-              item.className = 'list-group-item';
-              item.textContent = inst.nombre;
+              data.forEach(inst => {
+                  const item = document.createElement('li');
+                  item.className = 'list-group-item';
+                  item.textContent = inst.nombre;
 
-              // Hacer seleccionable
-              item.addEventListener('click', function() {
-                  // Quitar selección previa
-                  document.querySelectorAll('#listaInstituciones li').forEach(i => i.classList.remove('active'));
-                  // Activar el seleccionado
-                  this.classList.add('active');
-                  console.log("Institución seleccionada:", inst.nombre);
+                  // 👇 Evento al hacer clic en una institución
+                  item.addEventListener('click', function() {
+                      // Quitar selección previa
+                      document.querySelectorAll('#listaInstituciones li')
+                          .forEach(i => i.classList.remove('active'));
+
+                      // Activar el seleccionado visualmente
+                      this.classList.add('active');
+
+                      // 1️⃣ Desplegar el panel de detalles
+                      const detalles = new bootstrap.Collapse(
+                          document.getElementById('collapseDetalles'),
+                          { show: true, toggle: true }
+                      );
+
+                      // 2️⃣ Cargar detalles de la institución seleccionada
+                      fetch(`/api/instituciones/${inst.id}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            document.getElementById('nombreOficial').textContent = data.nombre;
+                            document.getElementById('direccionInstitucion').textContent = data.direccion || "No registrada";
+                            document.getElementById('coloresInstitucion').textContent = data.setcolores || "N/A";
+
+                            if (data.logo) {
+                                document.getElementById('logoLink').href = data.logo;
+                            } else {
+                                document.getElementById('logoLink').href = "#";
+                            }
+
+                            // 3️⃣ Guardar el ID para aceptar/rechazar
+                            window.seleccionInstitucion = data.id;
+                        });
+                  });
+
+                  lista.appendChild(item);
               });
-
-              lista.appendChild(item);
-          });
           } catch (error) {
-          console.error('Error al cargar instituciones:', error);
+              console.error('Error al cargar instituciones:', error);
           }
       }
 
-      // Cargar al expandir el acordeón
-      const collapseLista = document.getElementById('collapseLista');
-      collapseLista.addEventListener('shown.bs.collapse', cargarListaInstituciones);
+        // Cargar al expandir el acordeón
+        const collapseLista = document.getElementById('collapseLista');
+        collapseLista.addEventListener('shown.bs.collapse', cargarListaInstituciones);
     </script>
+    <script>
+        function aceptarInstitucion() {
+            if (!window.seleccionInstitucion) {
+                alert("Primero seleccione una institución de la lista.");
+                return;
+            }
+
+            fetch(`/api/instituciones/aceptar/${window.seleccionInstitucion}`, {
+                method: "POST",
+                headers: { "X-CSRFToken": getCookie("csrftoken") }
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert(data.mensaje);
+                location.reload();
+            })
+            .catch(() => alert("Error del servidor."));
+        }
+
+        // Obtener token CSRF (Django)
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+                const cookies = document.cookie.split(";");
+                for (let cookie of cookies) {
+                    cookie = cookie.trim();
+                    if (cookie.startsWith(name + "=")) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+
 
 
     </body>
