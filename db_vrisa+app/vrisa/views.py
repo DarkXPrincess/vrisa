@@ -86,7 +86,8 @@ def admin_sistema(request):
 
 
 def api_instituciones(request):
-    instituciones = Institucion.objects.all().order_by("nombre")
+    instituciones = Institucion.objects.exclude(e_validacion="aceptado").order_by("nombre")
+
     data = [
         {"id": inst.id_i, "nombre": inst.nombre}
         for inst in instituciones
