@@ -126,3 +126,19 @@ def api_institucion_aceptar(request, id):
     inst.save()
 
     return JsonResponse({"mensaje": f"Incripción de {inst.nombre} aprobada."})
+
+@csrf_exempt
+def api_institucion_rechazar(request, inst_id):
+    if request.method != "POST":
+        return JsonResponse({"error": "Método no permitido"}, status=405)
+
+    try:
+        inst = Institucion.objects.get(id_i=inst_id)
+    except Institucion.DoesNotExist:
+        return JsonResponse({"error": "Institución no encontrada"}, status=404)
+
+    # Solo cambiar estado
+    inst.e_validacion = "rechazado"
+    inst.save()
+
+    return JsonResponse({"mensaje": f"Rechazo de {inst.nombre} efectuado."})
