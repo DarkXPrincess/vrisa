@@ -13,6 +13,19 @@
     <link rel="stylesheet" href="{% static 'STYLES/Button Style.css' %}">
     <link rel="stylesheet" href="{% static 'STYLES/Letter.css' %}">
     <link rel="stylesheet" href="{% static 'STYLES/Letters_transitions.css' %}">
+    <style>
+      .list-group-item:hover {
+          cursor: pointer;
+          background: #e3f2fd;
+      }
+
+      .list-group-item.active {
+          background: #0d6efd !important;
+          color: white;
+          font-weight: bold;
+      }
+    </style>
+
 </head>
 <!--CUERPO-->
 <body>
@@ -126,7 +139,7 @@
                 </h2>
                 <div id="collapseLista" class="accordion-collapse collapse show bg-light" aria-labelledby="headingLista" data-bs-parent="#accordionInstituciones">
                 <div class="accordion-body">
-                    <ul class="list-group" id="listaInstituciones">
+                    <ul class="list-group selectable" id="listaInstituciones">
                     <!-- Se llenará dinámicamente -->
                     </ul>
                 </div>
@@ -201,29 +214,40 @@
         });
     </script>
     <script>
-        async function cargarListaInstituciones() {
-            try {
-            const response = await fetch('/api/instituciones');
-            const data = await response.json();
-            const lista = document.getElementById('listaInstituciones');
+      async function cargarListaInstituciones() {
+          try {
+          const response = await fetch('/api/instituciones');
+          const data = await response.json();
+          const lista = document.getElementById('listaInstituciones');
 
-            lista.innerHTML = ''; // Limpiar lista previa
+          lista.innerHTML = ''; // Limpiar lista previa
 
-            data.forEach(inst => {
-                const item = document.createElement('li');
-                item.className = 'list-group-item';
-                item.textContent = inst.nombre;
-                lista.appendChild(item);
-            });
-            } catch (error) {
-            console.error('Error al cargar instituciones:', error);
-            }
-        }
+          data.forEach(inst => {
+              const item = document.createElement('li');
+              item.className = 'list-group-item';
+              item.textContent = inst.nombre;
 
-        // Cargar al expandir el acordeón
-        const collapseLista = document.getElementById('collapseLista');
-        collapseLista.addEventListener('shown.bs.collapse', cargarListaInstituciones);
+              // Hacer seleccionable
+              item.addEventListener('click', function() {
+                  // Quitar selección previa
+                  document.querySelectorAll('#listaInstituciones li').forEach(i => i.classList.remove('active'));
+                  // Activar el seleccionado
+                  this.classList.add('active');
+                  console.log("Institución seleccionada:", inst.nombre);
+              });
+
+              lista.appendChild(item);
+          });
+          } catch (error) {
+          console.error('Error al cargar instituciones:', error);
+          }
+      }
+
+      // Cargar al expandir el acordeón
+      const collapseLista = document.getElementById('collapseLista');
+      collapseLista.addEventListener('shown.bs.collapse', cargarListaInstituciones);
     </script>
+
 
     </body>
 </html>
