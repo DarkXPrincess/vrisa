@@ -23,4 +23,12 @@ urlpatterns = [
     path("logout/", views.logout_view, name="logout_view"),
 
     path("tableros/", views.tableros, name="tableros"),
+    # API para detalle de institución
+
+    path("api/instituciones/<int:id>", views.api_institucion_detalle, name="api_inst_detalle"),
+    #API para aceptar/rechazar institución
+
+    path("api/instituciones/aceptar/<int:id>", views.api_institucion_aceptar, name="api_inst_aceptar"),
+    path("api/instituciones/rechazar/<int:inst_id>", views.api_institucion_rechazar, name="api_institucion_rechazar"),
+    
 ]
