@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 from .models import Institucion
 from .models import Usuario
+from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
     return render(request, "index.html")
@@ -91,3 +92,37 @@ def api_instituciones(request):
         for inst in instituciones
     ]
     return JsonResponse(data, safe=False)
+
+
+def api_institucion_detalle(request, id):
+    try:
+        inst = Institucion.objects.get(id_i=id)
+    except Institucion.DoesNotExist:
+        return JsonResponse({"error": "Institución no encontrada"}, status=404)
+
+    data = {
+        "id": inst.id_i,
+        "nombre": inst.nombre,
+        "direccion": inst.direccion,
+        "setcolores": inst.setcolores if hasattr(inst, 'setcolores') else None,
+        "logo": inst.logo,
+        "estado": inst.estado,
+        "validacion": inst.e_validacion,
+    }
+    return JsonResponse(data)
+
+@csrf_exempt
+def api_institucion_aceptar(request, id):
+    if request.method != "POST":
+        return JsonResponse({"error": "Método no permitido"}, status=405)
+
+    try:
+        inst = Institucion.objects.get(id_i=id)
+    except Institucion.DoesNotExist:
+        return JsonResponse({"error": "Institución no encontrada"}, status=404)
+
+    inst.e_validacion = "aceptado"
+    inst.estado = "activo"
+    inst.save()
+
+    return JsonResponse({"mensaje": f"Incripción de {inst.nombre} aprobada."})
