@@ -1,0 +1,82 @@
+# ============================================================
+# REQUIREMENTS.TXT - Django Project VRISA
+# ============================================================
+# Este archivo contiene todas las dependencias necesarias
+# para ejecutar el proyecto Django con PostgreSQL/PostGIS
+# ============================================================
+
+# Core Django Framework
+# Django 5.2.x requiere Python >= 3.10
+Django>=5.2.0,<5.3.0
+
+# PostgreSQL Database Driver
+# psycopg2-binary incluye las dependencias de compilación pre-construidas
+psycopg2-binary>=2.9.9
+
+# Optional: Si prefieres compilar desde source (más rendimiento en producción)
+# Descomenta la siguiente línea y comenta psycopg2-binary
+# psycopg2>=2.9.9
+
+# Servidor ASGI para producción (opcional, pero recomendado)
+# Django 5.x usa ASGI por defecto
+asgiref>=3.7.0
+
+# SQL Parser (requerido por Django internamente)
+sqlparse>=0.4.4
+
+# Timezone support
+tzdata>=2024.1
+
+# ============================================================
+# DEPENDENCIAS ADICIONALES RECOMENDADAS
+# ============================================================
+
+# Para mejor debugging en desarrollo
+# Descomenta si necesitas:
+# django-debug-toolbar>=4.2.0
+
+# Para variables de entorno (.env files)
+# Descomenta si planeas usar archivos .env:
+# python-decouple>=3.8
+
+# Para servir archivos estáticos en producción
+# whitenoise>=6.6.0
+
+# Para validación de contraseñas más robusta
+# django-password-validators>=1.7.1
+
+# ============================================================
+# NOTAS IMPORTANTES:
+# ============================================================
+# 
+# 1. POSTGIS/GeoDjango:
+#    Tu base de datos usa PostGIS (postgis/postgis:16-3.4 en Docker).
+#    Para usar funcionalidades de GeoDjango, necesitarás instalar
+#    bibliotecas del sistema ANTES de instalar estas dependencias:
+#    
+#    En Windows:
+#      - Descarga OSGeo4W: https://trac.osgeo.org/osgeo4w/
+#      - Instala GDAL, GEOS, PROJ
+#    
+#    En Linux/Mac:
+#      sudo apt-get install binutils libproj-dev gdal-bin
+#    
+#    Luego, SI planeas usar GeoDjango features en tu app,
+#    agrega 'django.contrib.gis' a INSTALLED_APPS en settings.py
+#    y descomenta las siguientes líneas:
+#
+# GDAL>=3.7.0  # Geospatial Data Abstraction Library
+#
+# 2. INSTALACIÓN:
+#    pip install -r requirements.txt
+#
+# 3. ACTUALIZACIÓN:
+#    pip install --upgrade -r requirements.txt
+#
+# 4. ENTORNO VIRTUAL:
+#    Se recomienda usar un entorno virtual:
+#    python -m venv venv
+#    venv\Scripts\activate  (Windows)
+#    source venv/bin/activate  (Linux/Mac)
+#
+# ============================================================
