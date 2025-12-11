@@ -331,7 +331,10 @@ class Estacion(models.Model):
     cert_mant = models.CharField(max_length=200, blank=True, null=True)
     cert_cal = models.CharField(max_length=200, blank=True, null=True)
     ubicacion = models.CharField(max_length=200)
+    latitud = models.DecimalField(max_digits=10, decimal_places=7, blank=True, null=True)
+    longitud = models.DecimalField(max_digits=10, decimal_places=7, blank=True, null=True)
     geom = models.TextField(blank=True, null=True)  # This field type is a guess.
+    id_i = models.IntegerField(blank=True, null=True)  # FK a institucion
     e_validacion = models.TextField()  # This field type is a guess.
     estado = models.TextField()  # This field type is a guess.
 
