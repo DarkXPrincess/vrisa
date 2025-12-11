@@ -2,283 +2,325 @@
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VriSA</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!--ENLACE A ARCHIVOS CSS-->
-    <link rel="stylesheet" href="{% static 'STYLES/Background.css' %}">
-    <link rel="stylesheet" href="{% static 'STYLES/Animations.css' %}">
-    <link rel="stylesheet" href="{% static 'STYLES/Button Style.css' %}">
-    <link rel="stylesheet" href="{% static 'STYLES/Letter.css' %}">
-    <link rel="stylesheet" href="{% static 'STYLES/Letters_transitions.css' %}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VriSA</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <!--ENLACE A ARCHIVOS CSS-->
+  <link rel="stylesheet" href="{% static 'STYLES/Background.css' %}">
+  <link rel="stylesheet" href="{% static 'STYLES/Animations.css' %}">
+  <link rel="stylesheet" href="{% static 'STYLES/Button Style.css' %}">
+  <link rel="stylesheet" href="{% static 'STYLES/Letter.css' %}">
+  <link rel="stylesheet" href="{% static 'STYLES/Letters_transitions.css' %}">
 </head>
 <!--CUERPO-->
+
 <body>
 
-<!-- MODAL INSTITUCION-->
-<div class="modal fade" id="modalInstitucion" tabindex="-1" aria-labelledby="modalInstitucionLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalInstitucionLabel">Registrar Institución</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
+  <!-- MODAL INSTITUCION-->
+  <div class="modal fade" id="modalInstitucion" tabindex="-1" aria-labelledby="modalInstitucionLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalInstitucionLabel">Registrar Institución</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
 
-      <div class="modal-body">
-        <!-- FORMULARIO INSTITUCION -->
-        <form id="formInstitucion"
-              method="POST"
-              action="{% url 'vrisa:registrar_institucion' %}">
-          {% csrf_token %}
+        <div class="modal-body">
+          <!-- FORMULARIO INSTITUCION -->
+          <form id="formInstitucion" method="POST" action="{% url 'vrisa:registrar_institucion' %}">
+            {% csrf_token %}
 
-          <div class="mb-3">
-            <label for="nombreInstitucion" class="form-label">Nombre oficial de la institución</label>
-            <input type="text"
-                   class="form-control"
-                   id="nombreInstitucion"
-                   name="nombre"
-                   placeholder="Ej. Universidad VriSA">
-          </div>
-
-          <div class="mb-3">
-            <label for="setcolores" class="form-label">Set de colores</label>
-            <input type="text"
-                   class="form-control"
-                   id="setcolores"
-                   name="setcolores"
-                   placeholder="Ej. Blanco">
-          </div>
-
-          <div class="mb-3">
-            <label for="direfisica" class="form-label">Dirección física</label>
-            <input type="text"
-                   class="form-control"
-                   id="direfisica"
-                   name="direccion"
-                   placeholder="Ej. cll 183 15-19">
-          </div>
-
-          <div class="mb-3">
-            <div><label for="logoInstitucion" class="form-label">Sobre tu Logo... </label></div>
-            <input type="file"
-                   class="d-none"
-                   id="logoInstitucion"
-                   accept="image/*">
-            <label for="logoInstitucion" class="btn btn-outline-primary">Subir archivo</label>
-            <span id="nombreArchivo" class="ms-2 text-muted">Ningún archivo seleccionado</span>
-          </div>
-
-        </form>
-        <!-- FIN FORMULARIO INSTITUCION -->
-      </div>
-
-      <div class="modal-footer">
-        <button type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal">
-          Cancelar
-        </button>
-
-        <!-- ESTE ES EL BOTÓN QUE ENVÍA EL FORMULARIO -->
-        <button type="submit"
-                class="btn btn-primary"
-                form="formInstitucion">
-          Enviar Solicitud de registro
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!--FIN MODAL INSTITUCION-->
-<!--MODAL ESTACION-->
-<div class="modal fade" id="modalEstacion" tabindex="-1" aria-labelledby="modalEstacionLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalEstacionLabel">Registrar Estación</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <!-- Institución a asociar -->
-          <div class="mb-3">
-            <label for="institucionSelect" class="form-label">Institución a asociar</label>
-            <select class="form-select" id="institucionSelect">
-                <option selected disabled>Selecciona una institución</option>
-                <!-- Las opciones se llenarán dinámicamente -->
-            </select>
-          </div>
-
-          <!-- Tipo de sensor instalado -->
-          <div class="mb-3">
-            <label for="tipoSensor" class="form-label">Tipo de sensor instalado</label>
-            <input type="text" class="form-control" id="tipoSensor" placeholder="Ej. Sensor de humedad">
-          </div>
-
-          <!-- Responsable técnico -->
-          <div class="mb-3">
-            <label for="responsableTecnico" class="form-label">Responsable técnico de la estación</label>
-            <input type="text" class="form-control" id="responsableTecnico" placeholder="Ej. Ing. Alexander Ruiz">
-          </div>
-
-          <!-- Documentos/certificados -->
-          <div class="mb-3">
-            <div for="documentosEstacion" class="form-label">Documentos / Certificados</div>
-            <input type="file" class="d-none" id="documentosEstacion" multiple>
-            <label for="documentosEstacion" class="btn btn-outline-primary">Subir archivo(s)</label>
-            <span id="nombreDocumentos" class="ms-2 text-muted">Ningún archivo seleccionado</span>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!--FIN MODAL ESTACION-->
-<!--MODAL ACCEDER/login-->
-<!--MODAL ACCEDER/login-->
-<div class="modal fade" id="modallogin" tabindex="-1" aria-labelledby="modalloginLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalloginLabel">Inicio de sesión</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-
-      <div class="modal-body">
-        <form id="formLogin"
-              method="POST"
-              action="{% url 'vrisa:login' %}">
-          {% csrf_token %}
-
-          <!-- Usuario o correo electrónico -->
-          <div class="mb-3">
-            <label for="usuarioLogin" class="form-label">Usuario / Correo electrónico</label>
-            <input type="text"
-                   class="form-control"
-                   id="usuarioLogin"
-                   name="correo"
-                   placeholder="Ej. alexander@vrisa.org">
-          </div>
-
-          <!-- Contraseña -->
-          <div class="mb-3">
-            <label for="passwordLogin" class="form-label">Contraseña</label>
-            <div class="input-group">
-              <input type="password"
-                     class="form-control"
-                     id="passwordLogin"
-                     name="contrasena">
-              <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                🙈
-              </button>
+            <div class="mb-3">
+              <label for="nombreInstitucion" class="form-label">Nombre oficial de la institución</label>
+              <input type="text" class="form-control" id="nombreInstitucion" name="nombre"
+                placeholder="Ej. Universidad VriSA">
             </div>
-          </div>
 
-        </form>
+            <div class="mb-3">
+              <label for="setcolores" class="form-label">Set de colores</label>
+              <input type="text" class="form-control" id="setcolores" name="setcolores" placeholder="Ej. Blanco">
+            </div>
+
+            <div class="mb-3">
+              <label for="direfisica" class="form-label">Dirección física</label>
+              <input type="text" class="form-control" id="direfisica" name="direccion" placeholder="Ej. cll 183 15-19">
+            </div>
+
+            <div class="mb-3">
+              <div><label for="logoInstitucion" class="form-label">Sobre tu Logo... </label></div>
+              <input type="file" class="d-none" id="logoInstitucion" accept="image/*">
+              <label for="logoInstitucion" class="btn btn-outline-primary">Subir archivo</label>
+              <span id="nombreArchivo" class="ms-2 text-muted">Ningún archivo seleccionado</span>
+            </div>
+
+          </form>
+          <!-- FIN FORMULARIO INSTITUCION -->
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+
+          <!-- ESTE ES EL BOTÓN QUE ENVÍA EL FORMULARIO -->
+          <button type="submit" class="btn btn-primary" form="formInstitucion">
+            Enviar Solicitud de registro
+          </button>
+        </div>
       </div>
-
-      <div class="modal-footer">
-        <button type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal">
-          Cancelar
-        </button>
-
-        <!-- ESTE es el botón que ENVÍA el form -->
-        <button type="submit"
-                class="btn btn-primary"
-                form="formLogin">
-          Ingresar
-        </button>
-      </div>
-
     </div>
   </div>
-</div>
-
-</form>
 
 
-<!--FIN MODAL ACCEDER-->
-<!--NAVEGADOR-->
+  <!--FIN MODAL INSTITUCION-->
+  <!--MODAL ESTACION-->
+  <div class="modal fade" id="modalEstacion" tabindex="-1" aria-labelledby="modalEstacionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEstacionLabel">Registrar Estación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <!-- FORMULARIO CONECTADO AL BACKEND -->
+          <form id="formRegistrarEstacion" method="POST" action="{% url 'vrisa:registrar_estacion' %}">
+            {% csrf_token %}
+
+            <!-- Nombre de la estación -->
+            <div class="mb-3">
+              <label for="nombreEstacion" class="form-label">Nombre de la Estación</label>
+              <input type="text" class="form-control" id="nombreEstacion" name="nombre"
+                placeholder="Ej. Estación Cali Centro" required>
+            </div>
+
+            <!-- Ubicación -->
+            <div class="mb-3">
+              <label for="ubicacionEstacion" class="form-label">Ubicación</label>
+              <input type="text" class="form-control" id="ubicacionEstacion" name="ubicacion"
+                placeholder="Ej. Av. 5ta Norte #25-100" required>
+            </div>
+
+            <!-- Latitud -->
+            <div class="mb-3">
+              <label for="latitudEstacion" class="form-label">Latitud</label>
+              <input type="number" class="form-control" id="latitudEstacion" name="latitud" step="0.0000001" min="-90"
+                max="90" placeholder="Ej. 3.4516" required>
+              <small class="text-muted">Rango: -90 a 90</small>
+            </div>
+
+            <!-- Longitud -->
+            <div class="mb-3">
+              <label for="longitudEstacion" class="form-label">Longitud</label>
+              <input type="number" class="form-control" id="longitudEstacion" name="longitud" step="0.0000001"
+                min="-180" max="180" placeholder="Ej. -76.5225" required>
+              <small class="text-muted">Rango: -180 a 180</small>
+            </div>
+
+            <!-- Institución a asociar -->
+            <div class="mb-3">
+              <label for="institucionSelect" class="form-label">Institución a asociar</label>
+              <select class="form-select" id="institucionSelect" name="id_i" required>
+                <option value="" selected disabled>Selecciona una institución</option>
+                <!-- Las opciones se llenarán dinámicamente con JavaScript -->
+              </select>
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <!-- Este botón ENVÍA el formulario -->
+          <button type="submit" class="btn btn-primary" form="formRegistrarEstacion">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--FIN MODAL ESTACION-->
+  <!--MODAL ACCEDER/login-->
+  <!--MODAL ACCEDER/login-->
+  <div class="modal fade" id="modallogin" tabindex="-1" aria-labelledby="modalloginLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalloginLabel">Inicio de sesión</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body">
+          <form id="formLogin" method="POST" action="{% url 'vrisa:login' %}">
+            {% csrf_token %}
+
+            <!-- Usuario o correo electrónico -->
+            <div class="mb-3">
+              <label for="usuarioLogin" class="form-label">Usuario / Correo electrónico</label>
+              <input type="text" class="form-control" id="usuarioLogin" name="correo"
+                placeholder="Ej. alexander@vrisa.org">
+            </div>
+
+            <!-- Contraseña -->
+            <div class="mb-3">
+              <label for="passwordLogin" class="form-label">Contraseña</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="passwordLogin" name="contrasena">
+                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                  🙈
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+
+          <!-- ESTE es el botón que ENVÍA el form -->
+          <button type="submit" class="btn btn-primary" form="formLogin">
+            Ingresar
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  </form>
+
+
+  <!--FIN MODAL ACCEDER-->
+  <!--NAVEGADOR-->
   <div class=" container-fluid Background1 align-items-center">
-      <div class="navbar1">
+    <div class="navbar1">
       <nav class="navbar">
         <div class="container-fluid">
           <div class="row w-100">
             <div class="col-12 d-flex justify-content-between align-items-center">
-              
+
               <!-- Logo -->
               <div class="text-start ">
-                 <!-- Logo enlace -->
+                <!-- Logo enlace -->
                 <a class="navbar-brand" href="">
                   <img id="styleicon" alt="Logo" class="styleicon" width="60" height="60">
                 </a>
-                <a id="texto" class="d-none d-md-inline " href="" >
+                <a id="texto" class="d-none d-md-inline " href="">
                   <span class=" fs-3 fw-bold ">VriSA</span>
-                  
+
                 </a>
               </div>
-    
+
               <!-- Botones visibles en pantallas grandes -->
               <div class="text-end">
-                <button type="button" class="boton-azul   m-1 rounded-5"data-bs-toggle="modal" data-bs-target="#modallogin"> Acceder
-                
+                <button type="button" class="boton-azul   m-1 rounded-5" data-bs-toggle="modal"
+                  data-bs-target="#modallogin"> Acceder
+
                 </button>
 
-              
-               
-              </div>  
+
+
+              </div>
             </div>
           </div>
         </div>
       </nav>
     </div>
-    
-    <div class="container-fluid d-flex justify-content-center align-items-center">
-      <button type="button" class="btn boton-azul m-2" data-bs-toggle="modal" data-bs-target="#modalInstitucion">Registrar Institución</button>
 
-      <button type="button" class="btn boton-azul m-2" data-bs-toggle="modal" data-bs-target="#modalEstacion">Registrar Estación</button>
+    <div class="container-fluid d-flex justify-content-center align-items-center">
+      <button type="button" class="btn boton-azul m-2" data-bs-toggle="modal"
+        data-bs-target="#modalInstitucion">Registrar Institución</button>
+
+      <button type="button" class="btn boton-azul m-2" data-bs-toggle="modal" data-bs-target="#modalEstacion">Registrar
+        Estación</button>
     </div>
-  
+
   </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
 
-    <script>
-      const inputDocs = document.getElementById('documentosEstacion');
-      const nombreDocs = document.getElementById('nombreDocumentos');
+  <script>
+    const inputDocs = document.getElementById('documentosEstacion');
+    const nombreDocs = document.getElementById('nombreDocumentos');
 
-      inputDocs.addEventListener('change', function () {
-        if (this.files.length > 0) {
-          const nombres = Array.from(this.files).map(file => file.name).join(', ');
-          nombreDocs.textContent = nombres;
-        } else {
-          nombreDocs.textContent = 'Ningún archivo seleccionado';
-        }
-      });
-    </script>
+    inputDocs.addEventListener('change', function () {
+      if (this.files.length > 0) {
+        const nombres = Array.from(this.files).map(file => file.name).join(', ');
+        nombreDocs.textContent = nombres;
+      } else {
+        nombreDocs.textContent = 'Ningún archivo seleccionado';
+      }
+    });
+  </script>
 
-    <script>
-        const passwordInput = document.getElementById('passwordLogin');
-        const togglePassword = document.getElementById('togglePassword');
+  <script>
+    const passwordInput = document.getElementById('passwordLogin');
+    const togglePassword = document.getElementById('togglePassword');
 
-        togglePassword.addEventListener('click', () => {
-          const isPassword = passwordInput.type === 'password';
-          passwordInput.type = isPassword ? 'text' : 'password';
-          togglePassword.textContent = isPassword ? '👁️‍🗨️' : '🙈';
+    togglePassword.addEventListener('click', () => {
+      const isPassword = passwordInput.type === 'password';
+      passwordInput.type = isPassword ? 'text' : 'password';
+      togglePassword.textContent = isPassword ? '👁️‍🗨️' : '🙈';
+    });
+
+    // ============================================================
+    // CARGAR INSTITUCIONES PARA EL DROPDOWN DE ESTACIONES
+    // ============================================================
+
+    /**
+     * Esta función se ejecuta cuando la página carga completamente.
+     * Llama a la API para obtener la lista de instituciones
+     * y llena el dropdown del formulario de estación.
+     */
+    document.addEventListener('DOMContentLoaded', function () {
+      // 1. Obtener referencia al elemento <select> del HTML
+      const selectInstitucion = document.getElementById('institucionSelect');
+
+      // 2. LLAMAR A LA API para obtener las instituciones
+      fetch('/api/instituciones/')  // Esta es la URL de la API que ya existe
+        .then(response => {
+          // Verificar que la respuesta sea exitosa (status 200)
+          if (!response.ok) {
+            throw new Error('Error al cargar instituciones');
+          }
+          // Convertir la respuesta a JSON
+          return response.json();
+        })
+        .then(instituciones => {
+          // 3. LLENAR EL DROPDOWN con las instituciones recibidas
+
+          // instituciones es un array como:
+          // [
+          //   { "id": 1, "nombre": "Institución Prueba" },
+          //   { "id": 2, "nombre": "Otra Institución" }
+          // ]
+
+          instituciones.forEach(inst => {
+            // Crear un nuevo <option> para cada institución
+            const option = document.createElement('option');
+            option.value = inst.id;           // El value es el ID (se envía al backend)
+            option.textContent = inst.nombre; // El texto que ve el usuario
+
+            // Agregar la opción al select
+            selectInstitucion.appendChild(option);
+          });
+        })
+        .catch(error => {
+          // 4. MANEJO DE ERRORES si algo sale mal
+          console.error('Error:', error);
+          alert('No se pudieron cargar las instituciones. Intenta recargar la página.');
         });
-    </script>
+    });
+  </script>
 
-    </body>
+</body>
+
 </html>

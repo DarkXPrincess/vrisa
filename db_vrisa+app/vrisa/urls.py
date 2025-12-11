@@ -15,6 +15,16 @@ urlpatterns = [
     # POST del formulario de institución
     path("instituciones/registrar/", views.registrar_institucion, name="registrar_institucion"),
 
+    # POST del formulario de estación
+    path("estaciones/registrar/", views.registrar_estacion, name="registrar_estacion"),
+
+    # APIs de estaciones
+    path("api/estaciones/pendientes/", views.api_estaciones_pendientes, name="api_estaciones_pendientes"),
+    path("api/estaciones/activas/", views.api_estaciones_activas, name="api_estaciones_activas"),
+    path("api/estaciones/<int:id>/", views.api_estacion_detalle, name="api_estacion_detalle"),
+    path("api/estaciones/aceptar/<int:id>/", views.api_estacion_aceptar, name="api_estacion_aceptar"),
+    path("api/estaciones/rechazar/<int:id>/", views.api_estacion_rechazar, name="api_estacion_rechazar"),
+
     # API para listas con JS
     path("api/instituciones/", views.api_instituciones, name="api_instituciones"),
 
